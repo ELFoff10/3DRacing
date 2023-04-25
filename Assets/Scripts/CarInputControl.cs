@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Управление автомобилем.
+/// </summary>
 public class CarInputControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Car car;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        car.ThrottleControl = Input.GetAxis("Vertical");
+        car.BrakeControl = Input.GetAxis("Jump");
+        car.SteerControl = Input.GetAxis("Horizontal");
     }
 }

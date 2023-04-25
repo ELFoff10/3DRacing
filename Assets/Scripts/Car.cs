@@ -1,33 +1,34 @@
 using UnityEngine;
 
-public class Car : MonoBehaviour
+[RequireComponent (typeof(CarChassis))]
+/// <summary>
+/// Информационная модель автомобиля.
+/// </summary>
+
+// Основная идея, что мы CarChassis выступает посредником, для получения данных из WheelAxle
+public class Car : MonoBehaviour // Все скрипты будут взаимодействовать с классом Car    
 {
-    [SerializeField] private WheelCollider[] wheelColliders;
-    [SerializeField] private Transform[] wheelMeshs;
-    [SerializeField] private float motorTorque;
-    [SerializeField] private float breakTorque;
-    [SerializeField] private float steerAngle;
+    [SerializeField] private float maxMotorTorque;
+    [SerializeField] private float maxSteerAngle;
+    [SerializeField] private float maxBreakTorque;
+
+    private CarChassis chassis;
+
+    // DEBUG
+    public float ThrottleControl; //  Педаль газа. "Дроссель"
+    public float SteerControl; // Поворот
+    public float BrakeControl; // Тормоз
+    //public float handbrakecontrol; // ручной тормоз
+
+    private void Start()
+    {
+        chassis = GetComponent<CarChassis>();
+    }
 
     private void Update()
     {
-        for (int i = 0; i < wheelColliders.Length; i++)
-        {
-            // Крутящий момент = из управления "газ" * максимальный крутящий момент
-            wheelColliders[i].motorTorque = Input.GetAxis("Vertical") * motorTorque;
-
-            wheelColliders[i].brakeTorque = Input.GetAxis("Jump") * breakTorque;
-
-            Vector3 position;
-            Quaternion rotation;
-            // Синхронизировать трансформу коллайдера и колёс
-            wheelColliders[i].GetWorldPose(out position, out rotation);
-
-            wheelMeshs[i].position = position; 
-            wheelMeshs[i].rotation = rotation;
-        }
-
-        // Поворот передних колёс
-        wheelColliders[0].steerAngle = Input.GetAxis("Horizontal") * steerAngle;
-        wheelColliders[1].steerAngle = Input.GetAxis("Horizontal") * steerAngle;        
+        chassis.MotorTorque = maxMotorTorque * ThrottleControl;
+        chassis.SteerAngle = maxSteerAngle * SteerControl;
+        chassis.BreakTorque = maxBreakTorque * BrakeControl;
     }
 }
