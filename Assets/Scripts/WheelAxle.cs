@@ -34,6 +34,9 @@ public class WheelAxle
     private WheelHit leftWheelHit;
     private WheelHit rightWheelHit;
 
+    public bool IsMotor => isMotor;
+    public bool IsSteer => isSteer;
+
     // Public API
     public void Update()
     {
