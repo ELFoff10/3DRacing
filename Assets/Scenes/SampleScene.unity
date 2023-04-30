@@ -376,17 +376,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.5
-      outSlope: -0.5
+      inSlope: 1.3166323
+      outSlope: 1.3166323
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.29035515
+      value: 1.382291
+      inSlope: -2.0870411
+      outSlope: -2.0870411
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.17189427
+    - serializedVersion: 3
       time: 1
-      value: 0.5
-      inSlope: -0.5
-      outSlope: -0.5
+      value: 0
+      inSlope: -1.947863
+      outSlope: -1.947863
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -400,17 +409,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.85
-      outSlope: -0.85
+      inSlope: -0.8
+      outSlope: -0.8
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.15
-      inSlope: -0.85
-      outSlope: -0.85
+      value: 0.2
+      inSlope: -0.8
+      outSlope: -0.8
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -418,7 +427,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  autoBrakeStrength: 0.01
+  autoBrakeStrength: 0.05
 --- !u!4 &790066765
 Transform:
   m_ObjectHideFlags: 0
@@ -541,25 +550,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77b12a38f5f31d419c3730dc4aa1fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSteerAngle: 22
-  maxBreakTorque: 2000
+  maxSteerAngle: 25
+  maxBreakTorque: 1000
   engineTorqueCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.0056249998
-      outSlope: -0.0056249998
+      inSlope: -0.03
+      outSlope: -0.03
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 160
+      time: 25
+      value: 0.25
+      inSlope: -0.004680851
+      outSlope: -0.004680851
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19865105
+    - serializedVersion: 3
+      time: 120
       value: 0.1
-      inSlope: -0.0056249998
-      outSlope: -0.0056249998
+      inSlope: -0.0015789474
+      outSlope: -0.0015789474
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -568,7 +586,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxMotorTorque: 4000
-  maxSpeed: 160
+  maxSpeed: 120
   ThrottleControl: 0
   SteerControl: 0
   BrakeControl: 0
@@ -760,14 +778,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.20736659, y: -0, z: -0, w: 0.9782633}
-  m_LocalPosition: {x: 0, y: 0.964, z: -2.344}
+  m_LocalRotation: {x: 0.07790379, y: -0, z: -0, w: 0.99696094}
+  m_LocalPosition: {x: 0, y: 1.253, z: -3.366}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 925193358}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 23.936, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8.936, y: 0, z: 0}
 --- !u!1 &985861146
 GameObject:
   m_ObjectHideFlags: 0
