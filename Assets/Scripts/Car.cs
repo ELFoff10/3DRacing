@@ -8,9 +8,14 @@ using UnityEngine;
 // Основная идея, что мы CarChassis выступает посредником, для получения данных из WheelAxle
 public class Car : MonoBehaviour // Все скрипты будут взаимодействовать с классом Car    
 {
-    [SerializeField] private float maxMotorTorque;
     [SerializeField] private float maxSteerAngle;
     [SerializeField] private float maxBreakTorque;
+
+    [SerializeField] private AnimationCurve engineTorqueCurve;
+    [SerializeField] private float maxMotorTorque;
+    [SerializeField] private int maxSpeed;
+
+    public float LinearVelocity => chassis.LinearVelocity;
 
     private CarChassis chassis;
 
@@ -27,7 +32,14 @@ public class Car : MonoBehaviour // Все скрипты будут взаимодействовать с классо
 
     private void Update()
     {
-        chassis.MotorTorque = maxMotorTorque * ThrottleControl;
+        float engineTorque = engineTorqueCurve.Evaluate(LinearVelocity / maxSpeed) * maxMotorTorque;
+
+        if (LinearVelocity >= maxSpeed) 
+        {
+            engineTorque = 0;
+        }
+
+        chassis.MotorTorque = engineTorque * ThrottleControl;
         chassis.SteerAngle = maxSteerAngle * SteerControl;
         chassis.BreakTorque = maxBreakTorque * BrakeControl;
     }
