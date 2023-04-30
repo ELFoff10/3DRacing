@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody))]
 /// <summary>
@@ -52,6 +53,27 @@ public class CarChassis : MonoBehaviour
         UpdateDownForce();
 
         UpdateWheelAxles();
+    }
+
+    /// <summary>
+    /// Среднее вращение всех колёс.
+    /// </summary>
+    /// <returns></returns>
+    public float GetAverageRpm()
+    {
+        float sum = 0;
+
+        for (int i = 0; i < wheelAxles.Length; i++)
+        {
+            sum += wheelAxles[i].GetAvarageRpm();
+        }
+
+        return sum / wheelAxles.Length;
+    }
+
+    public float GetWheelSpeed()
+    {
+        return GetAverageRpm() * wheelAxles[0].GetRadius() * 2 * 0.1885f;
     }
 
     private void UpdateAngularDrag()

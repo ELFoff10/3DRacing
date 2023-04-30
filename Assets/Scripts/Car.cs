@@ -16,6 +16,8 @@ public class Car : MonoBehaviour // Все скрипты будут взаимодействовать с классо
     [SerializeField] private int maxSpeed;
 
     public float LinearVelocity => chassis.LinearVelocity;
+    public float WheelSpeed => chassis.GetWheelSpeed();
+    public float MaxSpeed => maxSpeed;
 
     private CarChassis chassis;
 
