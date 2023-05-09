@@ -5,22 +5,22 @@ public class Timer : MonoBehaviour
 {
     public event UnityAction Finished;
 
-    [SerializeField] private float _time;
+    [SerializeField] private float time;
 
-    private float _value;
+    private float value;
 
-    public float Value => _value;
+    public float Value => value;
 
     private void Start()
     {
-        _value = _time;
+        value = time;
     }
 
     private void Update()
     {
-        _value -= Time.deltaTime;
+        value -= Time.deltaTime;
 
-        if (_value <= 0)
+        if (value <= 0)
         {
             enabled = false;
 

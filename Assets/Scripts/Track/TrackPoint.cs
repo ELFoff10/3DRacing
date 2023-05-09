@@ -11,9 +11,9 @@ public class TrackPoint : MonoBehaviour
     public TrackPoint Next;
     public bool IsFirst;
     public bool IsLast;
-    public bool IsFinish = false;
+    //public bool IsFinish = false;
 
-    protected bool isTarget;
+    protected bool isTarget; // Следующая наша цель, через что нужно проехать
     public bool IsTarget => isTarget;
 
     private void OnTriggerEnter(Collider other)
@@ -29,11 +29,15 @@ public class TrackPoint : MonoBehaviour
     public void Passed()
     {
         isTarget = false;
-        IsFinish = true;
+        //IsFinish = true;
         OnPassed();
     }
 
-    public void AssignAsTarget()
+
+    /// <summary>
+    /// Назначаем точку как таргет
+    /// </summary>
+    public void AssignAsTarget() 
     {
         isTarget = true;
         OnAssignTarget();

@@ -84,4 +84,16 @@ public class CarInputControl : MonoBehaviour
         horizontalAxis = Input.GetAxis("Horizontal");
         //handBrakeAxis = Input.GetAxis("Jump"); // Самостоятельно в видео 29.6 на 19 минут говорится.
     }
+
+    public void Stop()
+    {
+        verticalAxis = 0;
+        horizontalAxis = 0;
+        //handBrakeAxis = 0;
+
+        car.ThrottleControl = 0;
+        car.SteerControl = 0;
+        car.BrakeControl = 0.5f;
+        //car.HandBrakeAxis = 0;
+    }
 }

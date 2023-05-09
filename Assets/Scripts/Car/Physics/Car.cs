@@ -21,14 +21,12 @@ public class Car : MonoBehaviour // Все скрипты будут взаимодействовать с классо
     [SerializeField] private float engineTorque;
     [SerializeField] private float engineRpm;
 
-
     [SerializeField] private float engineMinRpm;
     [SerializeField] private float engineMaxRpm;
 
     [Header("Gearbox")]
     [SerializeField] private float[] gears;
     [SerializeField] private float finalDriveRatio;
-
 
     //DEBUG
     [SerializeField] private int selectedGearIndex;
@@ -38,19 +36,17 @@ public class Car : MonoBehaviour // Все скрипты будут взаимодействовать с классо
     [SerializeField] private float upShiftEngineRpm;
     [SerializeField] private float downShiftEngineRpm;
 
-
-
     [SerializeField] private int maxSpeed;
     public float MaxSpeed => maxSpeed;
     public float LinearVelocity => chassis.LinearVelocity;
     public float NormalizeLinearVelocity => chassis.LinearVelocity / maxSpeed;
     public float WheelSpeed => chassis.GetWheelSpeed();
 
-
     public float EngineRpm => engineRpm;
     public float EngineMaxRpm => engineMaxRpm;
 
     private CarChassis chassis;
+    public Rigidbody Rigidbody => chassis == null ? GetComponent<CarChassis>().Rigidbody : chassis.Rigidbody;
 
     // DEBUG
     public float ThrottleControl; //  Педаль газа. "Дроссель"

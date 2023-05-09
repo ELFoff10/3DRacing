@@ -1,48 +1,50 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICountDownTimer : MonoBehaviour, IDependency<RaceStateTracker>
+public class UICountDownTimer : MonoBehaviour/*, IDependency<RaceStateTracker>*/
 {
-    [SerializeField] private Text _text;
+    [SerializeField] private RaceStateTracker raceStateTracker;
 
-    private Timer _countDownTimer;
+    [SerializeField] private TextMeshProUGUI text;
 
-    private RaceStateTracker _raceStateTracker;
-    public void Construct(RaceStateTracker obj) => _raceStateTracker = obj;
+    [SerializeField] private Timer countDownTimer;
+
+    //public void Construct(RaceStateTracker obj) => raceStateTracker = obj;
 
     private void Start()
     {
-        _raceStateTracker.PreparationStarted += OnRacePreparationStarted;
-        _raceStateTracker.Started += OnRaceStarted;
+        raceStateTracker.PreparationStarted += OnRacePreparationStarted;
+        raceStateTracker.Started += OnRaceStarted;
 
-        _text.enabled = false;
+        text.enabled = false;
     }
 
     private void OnDestroy()
     {
-        _raceStateTracker.PreparationStarted -= OnRacePreparationStarted;
-        _raceStateTracker.Started -= OnRaceStarted;
+        raceStateTracker.PreparationStarted -= OnRacePreparationStarted;
+        raceStateTracker.Started -= OnRaceStarted;
     }
 
     private void OnRacePreparationStarted()
     {
-        _text.enabled = true;
+        text.enabled = true;
         enabled = true;
     }
 
     private void OnRaceStarted()
     {
-        _text.enabled = false;
+        text.enabled = false;
         enabled = false;
     }
 
     private void Update()
     {
-        _text.text = _raceStateTracker.CountDownTimer.Value.ToString("F0");
+        text.text = countDownTimer.Value.ToString("F0");
 
-        if (_text.text == "0")
+        if (text.text == "0")
         {
-            _text.text = "GO!";
+            text.text = "GO!";
         }
     }
 }

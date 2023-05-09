@@ -3,12 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(CarCameraController))]
 public abstract class CarCameraComponent : MonoBehaviour
 {
-    protected Car _car;
-    protected Camera _camera;
+    protected Car car;
+    protected new Camera camera;
 
     public virtual void SetProperties(Car car, Camera camera)
     {
-        this._car = car;
-        this._camera = camera;
+        this.car = car;
+        this.camera = camera;
     }
 }

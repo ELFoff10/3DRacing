@@ -16,7 +16,6 @@ public class ActivatedTrackPoint : TrackPoint
 
     protected override void OnAssignTarget()
     {
-
         hint.SetActive(true);
     }
 }

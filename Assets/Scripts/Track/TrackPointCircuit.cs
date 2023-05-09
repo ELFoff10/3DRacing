@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,7 +18,7 @@ public class TrackPointCircuit : MonoBehaviour
 
     private TrackPoint[] points;
 
-    private int lapsCompleted = -1;
+    private int lapsCompleted = -1; // ћы далее инкрементим и получаетс€ что мы понииаем сколько кругов мы проехали
     public int LapsCompleted => lapsCompleted;
 
     private void Awake()
@@ -35,12 +36,6 @@ public class TrackPointCircuit : MonoBehaviour
         points[0].AssignAsTarget();
     }
 
-    [ContextMenu(nameof(BuildCircuit))]
-    private void BuildCircuit()
-    {
-        points = TrackCircultBuilder.Build(transform, type);
-    }
-
     private void OnDestroy()
     {
         for (int i = 0; i < points.Length; i++)
@@ -51,13 +46,14 @@ public class TrackPointCircuit : MonoBehaviour
 
     private void OnTrackPointTriggered(TrackPoint trackPoint)
     {
+        // ≈сли мы например считерили и проехали через другую точку, то return
         if (trackPoint.IsTarget == false)
         {
             return;
         }
 
         trackPoint.Passed();
-        trackPoint.Next?.AssignAsTarget();
+        trackPoint.Next?.AssignAsTarget(); //Ќазначаем следующую точку как таргет
 
         TrackPointTriggered?.Invoke(trackPoint);
 
@@ -78,5 +74,11 @@ public class TrackPointCircuit : MonoBehaviour
                 }
             }
         }
+    }
+
+    [ContextMenu(nameof(BuildCircuit))]
+    private void BuildCircuit()
+    {
+        points = TrackCircultBuilder.Build(transform, type);
     }
 }

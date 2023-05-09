@@ -4,28 +4,28 @@ using UnityEngine.Events;
 public enum RaceState
 {
     Preparation,
-    CoundDown,
+    CountDown,
     Race,
     Passed
 }
 
 public class RaceStateTracker : MonoBehaviour/*, IDependency<TrackPointCircuit>*/
 {
-    public event UnityAction PreparationStarted;
+    public event UnityAction PreparationStarted; // подготовка к старту
     public event UnityAction Started;
     public event UnityAction Completed;
     public event UnityAction<TrackPoint> TrackPointPassed;
     public event UnityAction<int> LapCompleted;
 
-    private TrackPointCircuit trackPointCircuit;
-    //public void Construct(TrackPointCircuit trackPointCircuit) => this._trackPointCircuit = trackPointCircuit; 2 вариант
+    [SerializeField] private TrackPointCircuit trackPointCircuit;
+    ////public void Construct(TrackPointCircuit trackPointCircuit) => this._trackPointCircuit = trackPointCircuit; 2 вариант
 
-    //[SerializeField] private Timer _countDownTimer;
-    //public Timer CountDownTimer => _countDownTimer;
+    [SerializeField] private Timer countDownTimer;
+    public Timer CountDownTimer => countDownTimer;
 
-    [SerializeField] private int _lapsToComplete;
+    [SerializeField] private int lapsToComplete;
 
-    public bool isLastCircle = false;
+    //public bool isLastCircle = false;
 
     private RaceState state;
     public RaceState State => state;
@@ -35,23 +35,23 @@ public class RaceStateTracker : MonoBehaviour/*, IDependency<TrackPointCircuit>*
         this.state = state;
     }
 
-    public void Construct(TrackPointCircuit trackPointCircuit)
-    {
-        this.trackPointCircuit = trackPointCircuit;
-    }
+    //public void Construct(TrackPointCircuit trackPointCircuit)
+    //{
+    //    this._trackPointCircuit = trackPointCircuit;
+    //}
 
     private void Start()
     {
         StartState(RaceState.Preparation);
-        
-        if (_lapsToComplete == 1)
-        {
-            isLastCircle = true;
-        }
 
-        _countDownTimer.enabled = false;
+        //    if (_lapsToComplete == 1)
+        //    {
+        //        isLastCircle = true;
+        //    }
 
-        _countDownTimer.Finished += OnCountDownTimerFinished;
+        countDownTimer.enabled = false;
+
+        countDownTimer.Finished += OnCountDownTimerFinished;
 
         trackPointCircuit.TrackPointTriggered += OnTrackPointTriggered;
         trackPointCircuit.LapCompleted += OnLapCompleted;
@@ -59,7 +59,7 @@ public class RaceStateTracker : MonoBehaviour/*, IDependency<TrackPointCircuit>*
 
     private void OnDestroy()
     {
-        _countDownTimer.Finished -= OnCountDownTimerFinished;
+        countDownTimer.Finished -= OnCountDownTimerFinished;
 
         trackPointCircuit.TrackPointTriggered -= OnTrackPointTriggered;
         trackPointCircuit.LapCompleted -= OnLapCompleted;
@@ -84,39 +84,40 @@ public class RaceStateTracker : MonoBehaviour/*, IDependency<TrackPointCircuit>*
 
         if (trackPointCircuit.Type == TrackType.Circular)
         {
-            if (lapAmount == _lapsToComplete)
+            if (lapAmount == lapsToComplete)
             {
                 CompleteRace();
             }
-
-            if ((lapAmount + 1) == _lapsToComplete)
+            else
             {
-                isLastCircle = true;
+                CompleteLap(lapAmount);
             }
+
+            //if ((lapAmount + 1) == lapsToComplete)
+            //{
+            //    isLastCircle = true;
+            //}
         }
-        else
-        {
-            CompleteLap(lapAmount);
-        }
+
     }
 
-    public void LaunchPeparationStarted()
+    public void LaunchPeparationStart()
     {
         if (state != RaceState.Preparation)
         {
             return;
         }
 
-        StartState(RaceState.CoundDown);
+        StartState(RaceState.CountDown);
 
-        _countDownTimer.enabled = true;
+        countDownTimer.enabled = true;
 
         PreparationStarted?.Invoke();
     }
 
     private void StartRace()
     {
-        if (state != RaceState.CoundDown)
+        if (state != RaceState.CountDown)
         {
             return;
         }
