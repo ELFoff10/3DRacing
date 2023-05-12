@@ -145,4 +145,24 @@ public class Car : MonoBehaviour // Все скрипты будут взаимодействовать с классо
 
         engineTorque = engineTorqueCurve.Evaluate(engineRpm / engineMaxRpm) * engineMaxTorque * finalDriveRatio * Mathf.Sign(selectedGear) * gears[0];
     }
+
+    public void Reset()
+    {
+        chassis.Reset();
+
+        chassis.MotorTorque = 0;
+        chassis.BreakTorque = 0;
+        chassis.SteerAngle = 0;
+
+        ThrottleControl = 0;
+        BrakeControl = 0;
+        SteerControl = 0;
+    }
+
+    public void Respawn(Vector3 position, Quaternion rotation)
+    {
+        Reset();
+        transform.position = position;
+        transform.rotation = rotation;
+    }
 }

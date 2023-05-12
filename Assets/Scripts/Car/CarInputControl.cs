@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,7 +86,7 @@ public class CarInputControl : MonoBehaviour
         //handBrakeAxis = Input.GetAxis("Jump"); // Самостоятельно в видео 29.6 на 19 минут говорится.
     }
 
-    public void Stop()
+    public void Reset()
     {
         verticalAxis = 0;
         horizontalAxis = 0;
@@ -93,7 +94,14 @@ public class CarInputControl : MonoBehaviour
 
         car.ThrottleControl = 0;
         car.SteerControl = 0;
-        car.BrakeControl = 0.5f;
+        car.BrakeControl = 0;
         //car.HandBrakeAxis = 0;
+    }
+
+    public void Stop()
+    {
+        Reset();
+
+        car.BrakeControl = 0.5f;
     }
 }

@@ -2,35 +2,37 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICountDownTimer : MonoBehaviour, IDependency<RaceStateTracker>
+public class UITrackTime : MonoBehaviour, IDependency<RaceTimeTracker>, IDependency<RaceStateTracker>
 {
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private Timer countDownTimer;
+
+    private RaceTimeTracker raceTimeTracker;
+    public void Construct(RaceTimeTracker obj) => raceTimeTracker = obj;
 
     private RaceStateTracker raceStateTracker;
     public void Construct(RaceStateTracker obj) => raceStateTracker = obj;
 
     private void Start()
     {
-        raceStateTracker.PreparationStarted += OnRacePreparationStarted;
         raceStateTracker.Started += OnRaceStarted;
+        raceStateTracker.Completed += OnRaceCompleted;
 
         text.enabled = false;
     }
 
     private void OnDestroy()
     {
-        raceStateTracker.PreparationStarted -= OnRacePreparationStarted;
         raceStateTracker.Started -= OnRaceStarted;
+        raceStateTracker.Completed -= OnRaceCompleted;
     }
 
-    private void OnRacePreparationStarted()
+    private void OnRaceStarted()
     {
         text.enabled = true;
         enabled = true;
     }
 
-    private void OnRaceStarted()
+    private void OnRaceCompleted()
     {
         text.enabled = false;
         enabled = false;
@@ -38,11 +40,6 @@ public class UICountDownTimer : MonoBehaviour, IDependency<RaceStateTracker>
 
     private void Update()
     {
-        text.text = raceStateTracker.CountDownTimer.Value.ToString("F0");
-
-        if (text.text == "0")
-        {
-            text.text = "GO!";
-        }
+        text.text = StringTime.SecondToTimeString(raceTimeTracker.CurrentTime);
     }
 }

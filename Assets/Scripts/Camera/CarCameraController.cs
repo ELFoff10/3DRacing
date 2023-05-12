@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class CarCameraController : MonoBehaviour /*, IDependency<RaceStateTracker>, IDependency<Car>*/
+public class CarCameraController : MonoBehaviour, IDependency<RaceStateTracker>, IDependency<Car>
 {
-    [SerializeField] private Car car;
     [SerializeField] private new Camera camera;
     [SerializeField] private CarCameraFollow follower;
     [SerializeField] private CarCameraShaker shaker;
     [SerializeField] private CarCameraFovCorrector fovCorrector;
     [SerializeField] private CarCameraPathFollower pathFollower;
 
-    //public void Construct(Car obj) => _car = obj;
+    private Car car;
+    public void Construct(Car obj) => car = obj;
 
-    [SerializeField] private RaceStateTracker raceStateTracker;
-    //public void Construct(RaceStateTracker obj) => _raceStateTracker = obj;
+    private RaceStateTracker raceStateTracker;
+    public void Construct(RaceStateTracker obj) => raceStateTracker = obj;
 
     private void Awake()
     {
