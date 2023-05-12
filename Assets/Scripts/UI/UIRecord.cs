@@ -4,11 +4,10 @@ using UnityEngine.UI;
 
 public class UIRecord : MonoBehaviour, IDependency<RaceResultTime>, IDependency<RaceStateTracker>, IDependency<RaceTimeTracker>
 {
-    [SerializeField] private GameObject panelRecord;
-    [SerializeField] private GameObject newGoldRecordObject;
-    [SerializeField] private TextMeshProUGUI goldRecordTime;
-    [SerializeField] private TextMeshProUGUI playerRecordTime;
-    [SerializeField] private TextMeshProUGUI newGoldRecordTime;
+    [SerializeField] private GameObject panelRaceRecordTime;
+    [SerializeField] private GameObject panelBest;
+    [SerializeField] private TextMeshProUGUI textRecordText;
+    [SerializeField] private TextMeshProUGUI textCurrentText;
 
     private RaceResultTime raceResultTime;
     public void Construct(RaceResultTime obj) => raceResultTime = obj;
@@ -23,7 +22,7 @@ public class UIRecord : MonoBehaviour, IDependency<RaceResultTime>, IDependency<
     {
         raceStateTracker.Completed += OnRaceCompleted;
 
-        panelRecord.SetActive(false);
+        panelRaceRecordTime.SetActive(false);
     }
 
     private void OnDestroy()
@@ -33,22 +32,19 @@ public class UIRecord : MonoBehaviour, IDependency<RaceResultTime>, IDependency<
 
     private void OnRaceCompleted()
     {
-        panelRecord.SetActive(true);
+        panelRaceRecordTime.SetActive(true);
 
-        if (raceResultTime.PlayerRecordTime > raceTimeTracker.CurrentTime)
-        {
-            newGoldRecordObject.SetActive(true);
-            newGoldRecordTime.enabled = true;
-            newGoldRecordTime.text = StringTime.SecondToTimeString(raceTimeTracker.CurrentTime);
+        if (raceResultTime.PlayerRecordTime >= raceTimeTracker.CurrentTime)
+        {       
+            panelBest.SetActive(true);
         }
 
         else
         {
-            newGoldRecordObject.SetActive(false);
-            newGoldRecordTime.enabled = false;
+            panelBest.SetActive(false);
         }
 
-        goldRecordTime.text = StringTime.SecondToTimeString(raceResultTime.PlayerRecordTime);
-        playerRecordTime.text = StringTime.SecondToTimeString(raceTimeTracker.CurrentTime);
+        textRecordText.text = StringTime.SecondToTimeString(raceResultTime.PlayerRecordTime);
+        textCurrentText.text = StringTime.SecondToTimeString(raceTimeTracker.CurrentTime);
     }
 }
