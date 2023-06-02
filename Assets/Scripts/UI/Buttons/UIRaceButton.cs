@@ -3,13 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore;
 
 public class UIRaceButton : UISelectableButton/*, IScriptableObjectProperty*/
 {
     [SerializeField] private RaceInfo raceInfo;
-    [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private GameObject lockPanel;
 
+    public GameObject LockPanel => lockPanel;
 
     private void Start()
     {
@@ -37,12 +38,13 @@ public class UIRaceButton : UISelectableButton/*, IScriptableObjectProperty*/
 
         raceInfo = property;
 
-        icon.sprite = raceInfo.Icon;
-        title.text = raceInfo.Title;
-
         //if (property is raceinfo == false)
         //{
         //    return;
         //}
+    }
+    public void SetLevelData(RaceInfo race, int score)
+    {
+        raceInfo = race;
     }
 }

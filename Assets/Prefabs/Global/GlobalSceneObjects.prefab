@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c9e64595275c44bb962d00a0875509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldTime: 22
+  goldTime: 25
 --- !u!1 &372503103420930303
 GameObject:
   m_ObjectHideFlags: 0
